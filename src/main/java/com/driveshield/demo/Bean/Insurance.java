@@ -2,152 +2,82 @@ package com.driveshield.demo.Bean;
 
 import java.util.Date;
 
-public class UserWriter {
+public class Insurance {
 
-    private String name;
-    private Date date_of_birth;
-    private String gender;
-    private String address;
-    private Date dateOfJoin;
-    private String underwriterId;
-    private String password;
-    private String role;
-    private boolean isAdmin;
-    private boolean isdeleted;
+    private String vehicleNo;
+    private String make;
+    private String model;
+    private Date startDate;
+    private Date endDate;
+    private double premiumAmount;
+    private String insuranceId;
 
-    public Date getDateOfJoin() {
-        return dateOfJoin;
+    public String getVehicleNo() {
+        return vehicleNo;
     }
 
-    public void setDateOfJoin(Date dateOfJoin) {
-        this.dateOfJoin = dateOfJoin;
+    public void setVehicleNo(String vehicleNo) {
+        this.vehicleNo = vehicleNo;
     }
 
-    public boolean isIsdeleted() {
-        return isdeleted;
+    public String getMake() {
+        return make;
     }
 
-    public void setIsdeleted(boolean isdeleted) {
-        this.isdeleted = isdeleted;
+    public void setMake(String make) {
+        this.make = make;
     }
 
-    public String getName() {
-        return name;
+    public String getModel() {
+        return model;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setModel(String model) {
+        this.model = model;
     }
 
-    public Date getDate_of_birth() {
-        return date_of_birth;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setDate_of_birth(Date date_of_birth) {
-        this.date_of_birth = date_of_birth;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public String getGender() {
-        return gender;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
-    public String getAddress() {
-        return address;
+    public double getPremiumAmount() {
+        return premiumAmount;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPremiumAmount(double premiumAmount) {
+        this.premiumAmount = premiumAmount;
     }
 
-    public String getUnderwriterId() {
-        return underwriterId;
+    public String getInsuranceId() {
+        return insuranceId;
     }
 
-    public void setUnderwriterId(String underwriterId) {
-        this.underwriterId = underwriterId;
+    public void setInsuranceId(String id) {
+        this.insuranceId = id;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    // Default constructor
-    public UserWriter() {
-    }
-
-    public UserWriter(String name, Date date_of_birth, String gender, String address, Date dateOfJoin,
-            String underwriterId, String password, boolean isAdmin, boolean isdeleted) {
+    public Insurance(String vehicleNo, String make, String model, Date startDate, Date endDate, double premiumAmount,
+            String insuranceId) {
         super();
-        this.name = name;
-        this.date_of_birth = date_of_birth;
-        this.gender = gender;
-        this.address = address;
-        this.dateOfJoin = dateOfJoin;
-        this.underwriterId = underwriterId;
-        this.password = password;
-        this.isAdmin = isAdmin;
-        this.isdeleted = isdeleted;
-    }
-
-    public UserWriter(String underwriterId, String name, Date date_of_birth, String gender, String address,
-            Date dateOfJoin, boolean isAdmin, boolean isdeleted) {
-        this.underwriterId = underwriterId;
-        this.name = name;
-        this.date_of_birth = date_of_birth;
-        this.gender = gender;
-        this.address = address;
-        this.dateOfJoin = dateOfJoin;
-        this.isAdmin = isAdmin;
-        this.isdeleted = isdeleted;
-    }
-
-    public UserWriter(String underwriterId, String name, Date date_of_birth, String gender, String address,
-            Date dateOfJoin) {
-        this.underwriterId = underwriterId;
-        this.name = name;
-        this.date_of_birth = date_of_birth;
-        this.gender = gender;
-        this.address = address;
-        this.dateOfJoin = dateOfJoin;
-    }
-
-    public UserWriter(String name, String underwriterId, String password, boolean isAdmin) {
-        this.underwriterId = underwriterId;
-        this.name = name;
-        this.isAdmin = isAdmin;
-        this.password = password;
-    }
-
-    public UserWriter(String name, String underwriterId, String password, boolean isAdmin, String role) {
-        this.underwriterId = underwriterId;
-        this.name = name;
-        this.isAdmin = isAdmin;
-        this.password = password;
-        this.role = role;
+        this.vehicleNo = vehicleNo;
+        this.make = make;
+        this.model = model;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.premiumAmount = premiumAmount;
+        this.insuranceId = insuranceId;
     }
 
 }
