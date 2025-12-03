@@ -1,14 +1,20 @@
 package com.driveshield.demo.Bean;
 
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Insurance {
 
     private String vehicleNo;
     private String make;
     private String model;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date startDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date endDate;
+
     private double premiumAmount;
     private String insuranceId;
 
@@ -66,6 +72,10 @@ public class Insurance {
 
     public void setInsuranceId(String id) {
         this.insuranceId = id;
+    }
+
+    // Default no-argument constructor (required for JSON deserialization)
+    public Insurance() {
     }
 
     public Insurance(String vehicleNo, String make, String model, Date startDate, Date endDate, double premiumAmount,
