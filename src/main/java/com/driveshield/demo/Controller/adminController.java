@@ -86,6 +86,10 @@ public class adminController {
         // Check if the requested role is Admin
         boolean isRequestedAdmin = userWriter.getRole().equalsIgnoreCase("admin");
 
+        System.out.println("DEBUG Controller: Login attempt for user: " + userWriter.getName());
+        System.out.println("DEBUG Controller: Requested role: " + userWriter.getRole());
+        System.out.println("DEBUG Controller: isRequestedAdmin: " + isRequestedAdmin);
+
         // Fetch the user from the database using name and password
         UserWriter loggedIn = service.login(userWriter.getName(), userWriter.getPassword());
 
@@ -93,6 +97,7 @@ public class adminController {
         Map<String, String> responseMap = new HashMap<>();
 
         if (loggedIn != null) {
+            System.out.println("DEBUG Controller: User found! isAdmin from DB: " + loggedIn.isAdmin());
             // Check if the default password is being used
             if (loggedIn.getPassword().equals("Employee@12")) {
                 responseMap.put("result", "Update your password (default password detected)");
@@ -100,17 +105,22 @@ public class adminController {
             } else {
                 // Validate the role and permissions
                 if (isRequestedAdmin && loggedIn.isAdmin()) {
+                    System.out.println("DEBUG Controller: Admin login successful");
                     responseMap.put("result", "Login successful: Admin");
                     responseMap.put("underwriterName", loggedIn.getName());
                 } else if (!isRequestedAdmin && !loggedIn.isAdmin()) {
+                    System.out.println("DEBUG Controller: User login successful");
                     responseMap.put("result", "Login successful: User");
                     responseMap.put("underwriterName", loggedIn.getName());
                 } else {
+                    System.out.println("DEBUG Controller: Role mismatch! Requested admin: " + isRequestedAdmin
+                            + ", User is admin: " + loggedIn.isAdmin());
                     responseMap.put("result", "Invalid role or permissions");
                     responseMap.put("underwriterName", null); // Optional, for explicitness
                 }
             }
         } else {
+            System.out.println("DEBUG Controller: Login failed - user not found or invalid credentials");
             responseMap.put("result", "Invalid username or password");
             responseMap.put("underwriterName", null);
         }
