@@ -15,7 +15,11 @@ public class adminDao {
 		boolean result = false;
 		Connection conn = UtilsDB.getConnection();
 		try {
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO REGISTER VALUES(?,?,?,?,?,?,?,?,?)");
+			// PreparedStatement ps = conn.prepareStatement("INSERT INTO REGISTER
+			// VALUES(?,?,?,?,?,?,?,?,?)"); -- reemoving the 9 colums
+
+			PreparedStatement ps = conn.prepareStatement(
+					"INSERT INTO REGISTER (name, date_of_birth, gender, address, dateOfJoin, UnderwriterId, password, isAdmin, isdeleted) VALUES(?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, userWriter.getName());
 			java.sql.Date dob = new java.sql.Date(userWriter.getDate_of_birth().getTime());
 			ps.setDate(2, dob);
@@ -79,10 +83,10 @@ public class adminDao {
 			while (rs.next()) {
 				String id = rs.getString("UnderwriterId");
 				String name = rs.getString("name");
-				Date dob = rs.getDate("DOB");
+				Date dob = rs.getDate("date_of_birth");
 				String gender = rs.getString("gender");
 				String address = rs.getString("address");
-				Date doj = rs.getDate("DOJ");
+				Date doj = rs.getDate("dateOfJoin");
 				userWriter = new UserWriter(id, name, dob, gender, address, doj);
 			}
 			UtilsDB.closeAllConnection(conn, ps, rs);
@@ -97,15 +101,20 @@ public class adminDao {
 		Connection conn = UtilsDB.getConnection();
 		try {
 			PreparedStatement ps = conn.prepareStatement(
-					"SELECT * FROM Register WHERE underwriterId = ? AND password = ? AND isdeleted = ?");
+					"SELECT * FROM Register WHERE name = ? AND password = ? AND isdeleted = ?");
 			ps.setString(1, username);
 			ps.setString(2, password);
 			ps.setBoolean(3, false);
+			System.out.println("DEBUG: Attempting login with username: " + username);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-
+				System.out.println("DEBUG: User found in database!");
+				System.out.println("DEBUG: isAdmin value from DB: " + rs.getBoolean("isAdmin"));
 				userWriter = new UserWriter(rs.getString("name"), rs.getString("underwriterId"),
 						rs.getString("password"), rs.getBoolean("isAdmin"));
+			}
+			if (userWriter == null) {
+				System.out.println("DEBUG: No user found with provided credentials");
 			}
 			UtilsDB.closeAllConnection(conn, ps, rs);
 		} catch (SQLException e) {
