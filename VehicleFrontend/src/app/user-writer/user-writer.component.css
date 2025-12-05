@@ -1,0 +1,103 @@
+/* General Styles for Content */
+.content {
+	background-color: #ffffff;
+	padding: 40px 30px;
+	border-radius: 10px;
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+	margin-top: 9%;
+	margin-left: 9%;
+	width: 100%;
+	max-width: 80%;
+	text-align: center;
+	animation: fadeIn 0.6s ease-in-out;
+	margin-bottom: 6%;
+}
+
+/* Heading Styles */
+.content h2 {
+	font-size: 30px;
+	color: #2c3e50;
+	margin-bottom: 20px;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+.content p {
+	font-size: 16px;
+	color: #7f8c8d;
+	margin-bottom: 30px;
+	font-weight: 500;
+}
+
+/* Options Container */
+.options-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 20px;
+	justify-items: center;
+}
+
+/* Individual Option Box */
+.option {
+	background-color: #ecf0f1;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 220px;
+	text-align: center;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.option a {
+	text-decoration: none;
+	color: #34495e;
+}
+
+.option i {
+	font-size: 40px;
+	margin-bottom: 15px;
+	color: #2980b9;
+	transition: color 0.3s ease;
+}
+
+.option p {
+	font-size: 16px;
+	font-weight: 600;
+	color: #34495e;
+	margin-top: 10px;
+}
+
+.option:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.option:hover i {
+	color: #21618c;
+}
+
+/* Animations */
+@keyframes fadeIn {from { opacity:0;
+	transform: translateY(20px);
+}
+
+to {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+	.content {
+		padding: 30px 20px;
+	}
+	.content h2 {
+		font-size: 24px;
+	}
+	.options-container {
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	}
+}

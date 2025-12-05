@@ -1,0 +1,82 @@
+<app-header [pages]="pages"></app-header>
+<div class="content">
+  <h2>Add Insurance</h2>
+  <p>Please fill out the details below to add a new insurance:</p>
+
+  <!-- Success or Failure Message -->
+  <div *ngIf="message" class="message" [ngClass]="{ success: isSuccess, error: !isSuccess }">
+    {{ message }}
+  </div>
+
+  <!-- Display Returned Data -->
+  <div *ngIf="isSuccess && insuranceUser" class="data-container">
+    <h3>Insurance Details:</h3>
+    <ul>
+      <li><strong>Vehicle No:</strong> {{ insuranceUser.vehicleNo }}</li>
+      <li><strong>Make:</strong> {{ insuranceUser.make }}</li>
+      <li><strong>Model:</strong> {{ insuranceUser.model }}</li>
+      <li><strong>Start Date:</strong> {{ insuranceUser.startDate | date }}</li>
+      <li><strong>End Date:</strong> {{ insuranceUser.endDate | date }}</li>
+      <li>
+        <strong>Premium Amount:</strong>
+        {{ insuranceUser.premiumAmount | currency }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="form-container">
+    <form #insuranceForm="ngForm" (ngSubmit)="onSubmit(insuranceForm)" novalidate>
+      <!-- Vehicle No -->
+      <label for="vehicleNo">Vehicle No:</label>
+      <input type="text" id="vehicleNo" name="vehicleNo" [(ngModel)]="insurance.vehicleNo" #vehicleNo="ngModel" />
+      <div *ngIf="vehicleNo.invalid && vehicleNo.touched" class="error">
+        Vehicle No must follow the format: AA-99 AA 9999.
+      </div>
+
+      <!-- Make -->
+      <label for="make">Brand:</label>
+      <input type="text" id="make" name="make" [(ngModel)]="insurance.make" required pattern="[A-Za-z\s]{4,50}"
+        #make="ngModel" />
+      <div *ngIf="make.invalid && make.touched" class="error">
+        Brand is required and must contain only letters, 5-50 characters.
+      </div>
+
+      <!-- Model -->
+      <label for="model">Model:</label>
+      <input type="text" id="model" name="model" [(ngModel)]="insurance.model" required pattern="[A-Za-z0-9\s\-]{2,50}"
+        #model="ngModel" />
+      <div *ngIf="model.invalid && model.touched" class="error">
+        Model is required and must be alphanumeric, 2-50 characters.
+      </div>
+
+      <!-- Start Date -->
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="startDate" [(ngModel)]="insurance.startDate" required #startDate="ngModel"
+        [min]="startDate" />
+      <div *ngIf="startDate.invalid && startDate.touched" class="error">
+        Start Date is required and must be a valid date.
+      </div>
+
+      <!-- End Date -->
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" name="endDate" [(ngModel)]="insurance.endDate" required #endDate="ngModel"
+        [min]="insurance.startDate ? insurance.startDate : null" (change)="validateEndDate()" />
+      <div *ngIf="endDate.invalid && endDate.touched" class="error">
+        End Date is required and must be greater than Start Date.
+      </div>
+
+      <!-- Premium Amount -->
+      <label for="premiumAmount">Premium Amount:</label>
+      <input type="number" id="premiumAmount" name="premiumAmount" [(ngModel)]="insurance.premiumAmount" step="0.01"
+        required min="500" max="1000000" #premiumAmount="ngModel" />
+      <div *ngIf="premiumAmount.invalid && premiumAmount.touched" class="error">
+        Premium Amount is required and must be between 500 and 1,000,000.
+      </div>
+
+      <button type="submit" [disabled]="insuranceForm.invalid">
+        Add Insurance
+      </button>
+      <button (click)="goBack()" class="back-link">Back</button>
+    </form>
+  </div>
+</div>

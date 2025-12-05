@@ -14,7 +14,9 @@ public class insuranceDao {
         boolean result = false;
         try {
             Connection cn = UtilsDB.getConnection();
-            PreparedStatement ps = cn.prepareStatement("INSERT INTO Insurance VALUES(?,?,?,?,?,?,?)");
+
+            PreparedStatement ps = cn.prepareStatement(
+                    "INSERT INTO Insurance (vehicleNo, make, model, startDate, endDate, premiumAmount, insuranceId) VALUES(?,?,?,?,?,?,?)");
             ps.setString(1, insurance.getVehicleNo());
             ps.setString(2, insurance.getMake());
             ps.setString(3, insurance.getModel());
@@ -43,8 +45,9 @@ public class insuranceDao {
             ps.setString(1, vehicleNo);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                result = new Insurance(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDate(5),
-                        rs.getDouble(6), rs.getString(7));
+                result = new Insurance(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getDate(5), rs.getDate(6),
+                        rs.getDouble(7));
             }
             UtilsDB.closeAllConnection(cn, ps, rs);
         } catch (SQLException e) {
@@ -58,12 +61,14 @@ public class insuranceDao {
         try {
             Connection cn = UtilsDB.getConnection();
             PreparedStatement ps = cn
-                    .prepareStatement("SELECT * FROM Insurance WHERE vehicleNo=? order by enddate desc");
+                    .prepareStatement("SELECT * FROM Insurance WHERE vehicleNo=? order by endDate desc");
             ps.setString(1, vehicleNo);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                result.add(new Insurance(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDate(4),
-                        rs.getDate(5), rs.getDouble(6), rs.getString(7)));
+                result.add(
+                        new Insurance(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                                rs.getDate(5), rs.getDate(6),
+                                rs.getDouble(7)));
             }
             UtilsDB.closeAllConnection(cn, ps, rs);
         } catch (SQLException e) {

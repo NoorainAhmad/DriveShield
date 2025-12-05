@@ -1,0 +1,61 @@
+<app-header [pages]="pages"></app-header>
+<!-- Success or Failure Message -->
+<div class="message-container" *ngIf="message">
+  <p class="success-message" *ngIf="isSuccess">{{ message }}</p>
+  <p class="error-message" *ngIf="!isSuccess">{{ message }}</p>
+</div>
+
+<!-- Content -->
+<div class="content">
+  <div class="form-container">
+    <h2>Vehicle Number History</h2>
+    <form (ngSubmit)="searchInsurance()" id="searchForm">
+      <label for="userID">Enter Vehicle No</label>
+      <input
+        type="text"
+        required
+        placeholder="Enter User ID"
+        [(ngModel)]="VehicleNo"
+        [ngModelOptions]="{ standalone: true }"
+      />
+      <button type="submit" class="search-btn">Search</button>
+      <button (click)="goBack()" class="back-link">Back</button>
+    </form>
+  </div>
+</div>
+
+<!-- Insurance Details -->
+<!-- Insurance Details -->
+<div *ngIf="user && user.length > 0">
+    <h2>Insurance Details:</h2>
+    <table id="insuranceDetails" class="insurance-details">
+      <thead>
+        <tr>
+          <th>Vehicle No</th>
+          <th>Make</th>
+          <th>Model</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Price</th>
+          <th>Insurance Id</th>
+          <th>Status</th> <!-- New column for Status -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vehicle of user">
+          <td>{{ vehicle.vehicleNo }}</td>
+          <td>{{ vehicle.make }}</td>
+          <td>{{ vehicle.model }}</td>
+          <td>{{ vehicle.startDate }}</td>
+          <td>{{ vehicle.endDate }}</td>
+          <td>{{ vehicle.premiumAmount }}</td>
+          <td>{{ vehicle.insuranceId }}</td>
+          <td>
+            <!-- Check Status -->
+            {{ isInactive(vehicle.endDate) ? 'Inactive' : 'Active' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

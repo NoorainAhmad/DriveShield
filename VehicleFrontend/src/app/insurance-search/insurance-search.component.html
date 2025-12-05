@@ -1,0 +1,66 @@
+<app-header [pages]="pages"></app-header>
+<!-- Content -->
+<div class="content">
+    <div class="form-container">
+      <h2>Search Insurance</h2>
+      <form (ngSubmit)="searchUser()">
+        <label for="userID">Enter Insurance Id</label>
+        <input
+          type="text"
+          [(ngModel)]="VehicleNo"
+          required
+          [ngModelOptions]="{ standalone: true }"
+          placeholder="Enter User ID"
+        />
+        <button type="submit">Search</button>
+        <button (click)="goBack()" class="back-link">Back</button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Success or Failure Message -->
+  <div class="message-container" *ngIf="message">
+    <p class="success-message" *ngIf="isSuccess">{{ message }}</p>
+    <p class="error-message" *ngIf="!isSuccess">{{ message }}</p>
+  </div>
+  
+  <!-- User Details -->
+  <div class="user-details" *ngIf="user">
+    <h2>User Details</h2>
+    <table class="user-table">
+      <tr>
+        <th>Field</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td><strong>Insurance Id</strong></td>
+        <td>{{ user.insuranceId }}</td>
+      </tr>
+      <tr>
+        <td><strong>vehicleNo</strong></td>
+        <td>{{ user.vehicleNo }}</td>
+      </tr>
+      <tr>
+        <td><strong>Make</strong></td>
+        <td>{{ user.make }}</td>
+      </tr>
+      <tr>
+        <td><strong>Model</strong></td>
+        <td>{{ user.model }}</td>
+      </tr>
+      <tr>
+        <td><strong>Start Date</strong></td>
+        <td>{{ user.startDate }}</td>
+      </tr>
+      <tr>
+        <td><strong>End Date</strong></td>
+        <td>{{ user.endDate }}</td>
+      </tr>
+      <tr>
+        <td><strong>Premium Amount</strong></td>
+        <td>{{ user.premiumAmount }}</td>
+      </tr>
+    </table>
+  
+  </div>
+  

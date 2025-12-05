@@ -1,0 +1,120 @@
+<app-header [pages]="pages"></app-header>
+<div class="content">
+  <div class="form-container">
+
+    <!-- Success/Error Message -->
+    <div *ngIf="responseMessage" class="response">
+      {{ responseMessage }}
+    </div>
+
+    <!-- Display User Details -->
+    <div *ngIf="userwriterResponse" class="user-details">
+      <h2>Registered User Details</h2>
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>ID</td>
+          <td>{{ userwriterResponse.underwriterId }}</td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td>{{ userwriterResponse.name }}</td>
+        </tr>
+        <tr>
+          <td>Date of Birth</td>
+          <td>{{ userwriterResponse.date_of_birth }}</td>
+        </tr>
+        <tr>
+          <td>Gender</td>
+          <td>{{ userwriterResponse.gender }}</td>
+        </tr>
+        <tr>
+          <td>Address</td>
+          <td>{{ userwriterResponse.address }}</td>
+        </tr>
+        <tr>
+          <td>Date of Joining</td>
+          <td>{{ userwriterResponse.dateOfJoin }}</td>
+        </tr>
+        <tr>
+          <td>Is Admin</td>
+          <td>{{ userwriterResponse.isAdmin }}</td>
+        </tr>
+      </table>
+
+      <!-- Download PDF Button -->
+      <button (click)="downloadUserDetailsPDF()">Download as PDF</button>
+    </div>
+
+
+
+
+    <h2>User Registration</h2>
+    <!-- Form -->
+    <form #userwriterForm="ngForm" (ngSubmit)="onSubmitUserWriterForm(userwriterForm)">
+      <!-- Name -->
+      <label for="name">Name <span class="required">*</span></label>
+      <input type="text" id="name" [(ngModel)]="userwriter.name" #name="ngModel" required placeholder="Enter your name"
+        [ngModelOptions]="{ standalone: true }" pattern="[A-Za-z\s]{4,50}" />
+      <div *ngIf="name.invalid && name.touched" class="error">
+        Name must be alphabet .
+      </div>
+      
+      <!-- Date of Birth -->
+      <label for="dob">Date of Birth<span class="required">*</span></label>
+      <input type="date" id="dob" [max]="maxdob" [(ngModel)]="userwriter.date_of_birth" #dob="ngModel" required
+        [ngModelOptions]="{ standalone: true }" />
+      <div *ngIf="dob.invalid && dob.touched" class="error">
+        Date of Birth is required.
+      </div>
+
+      <!-- Gender -->
+      <label for="gender">Gender<span class="required">*</span></label>
+      <select id="gender" [(ngModel)]="userwriter.gender" #gender="ngModel" required
+        [ngModelOptions]="{ standalone: true }">
+        <option value="" disabled selected>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+      <div *ngIf="gender.invalid && gender.touched" class="error">
+        Gender is required.
+      </div>
+
+      <!-- Address -->
+      <label for="address">Address<span class="required">*</span></label>
+      <textarea id="address" [(ngModel)]="userwriter.address" rows="3" #address="ngModel" required
+        [ngModelOptions]="{ standalone: true }" pattern="[A-Za-z\s]{10,50}" ></textarea>
+      <div *ngIf="address.invalid && address.touched" class="error">
+        Address is required and must be greater than 10 characters.
+      </div>
+
+      <!-- Date of Joining -->
+      <label for="doj">Date of Joining<span class="required">*</span></label>
+      <input type="date" id="doj" [(ngModel)]="userwriter.dateOfJoin" #doj="ngModel" required
+        [ngModelOptions]="{ standalone: true }" />
+      <div *ngIf="doj.invalid && doj.touched" class="error">
+        Date of Joining is required.
+      </div>
+
+      <!-- Is Admin -->
+      <label for="isAdmin">Is Admin<span class="required">*</span></label>
+      <select id="isAdmin" [(ngModel)]="userwriter.role" #isAdmin="ngModel" required
+        [ngModelOptions]="{ standalone: true }">
+        <option value="" disabled selected>Select Role</option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+
+      <button type="submit" [disabled]="userwriterForm.invalid">
+        Register
+      </button>
+
+      <button (click)="goBack()">Back</button>
+
+    </form>
+  </div>
+</div>

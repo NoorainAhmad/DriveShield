@@ -78,8 +78,8 @@ public class Insurance {
     public Insurance() {
     }
 
-    public Insurance(String vehicleNo, String make, String model, Date startDate, Date endDate, double premiumAmount,
-            String insuranceId) {
+    public Insurance(String insuranceId, String vehicleNo, String make, String model, Date startDate, Date endDate,
+            double premiumAmount) {
         super();
         this.vehicleNo = vehicleNo;
         this.make = make;

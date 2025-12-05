@@ -142,6 +142,13 @@ public class UserWriter {
         this.password = password;
     }
 
+    public UserWriter(String name, String password, boolean isAdmin) {
+
+        this.name = name;
+        this.isAdmin = isAdmin;
+        this.password = password;
+    }
+
     public UserWriter(String name, String underwriterId, String password, boolean isAdmin, String role) {
         this.underwriterId = underwriterId;
         this.name = name;
