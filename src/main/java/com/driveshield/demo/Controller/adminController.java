@@ -84,7 +84,8 @@ public class adminController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody UserWriter userWriter) {
         // Check if the requested role is Admin
-        boolean isRequestedAdmin = userWriter.getRole().equalsIgnoreCase("admin");
+        // boolean isRequestedAdmin = userWriter.getRole().equalsIgnoreCase("admin");
+        boolean isRequestedAdmin = userWriter.isAdmin();
 
         // Fetch the user from the database using name and password
         UserWriter loggedIn = service.login(userWriter.getName(), userWriter.getPassword());
@@ -94,28 +95,30 @@ public class adminController {
 
         if (loggedIn != null) {
             // Check if the default password is being used
-            if (loggedIn.getPassword().equals("Employee@12")) {
-                responseMap.put("result", "Update your password (default password detected)");
-                responseMap.put("underwriterName", loggedIn.getName());
-            } else {
-                // Validate the role and permissions
+            // if (loggedIn.getPassword().equals("Employee@12")) {
+            // responseMap.put("result", "Update your password (default password
+            // detected)");
+            // responseMap.put("underwriterName", loggedIn.getName());
+            // } else {
+            // Validate the role and permissions
+            if (loggedIn.getRole().equalsIgnoreCase("admin")) {
+                isRequestedAdmin = true;
+
                 if (isRequestedAdmin && loggedIn.isAdmin()) {
                     System.out.println("DEBUG Controller: Admin login successful");
                     responseMap.put("result", "Login successful: Admin");
                     responseMap.put("underwriterName", loggedIn.getName());
                 } else if (!isRequestedAdmin && !loggedIn.isAdmin()) {
-                    System.out.println("DEBUG Controller: User login successful");
                     responseMap.put("result", "Login successful: User");
                     responseMap.put("underwriterName", loggedIn.getName());
                 } else {
-                    System.out.println("DEBUG Controller: Role mismatch! Requested admin: " + isRequestedAdmin
-                            + ", User is admin: " + loggedIn.isAdmin());
                     responseMap.put("result", "Invalid role or permissions");
                     responseMap.put("underwriterName", null); // Optional, for explicitness
                 }
             }
-        } else {
-            System.out.println("DEBUG Controller: Login failed - user not found or invalid credentials");
+        } else
+
+        {
             responseMap.put("result", "Invalid username or password");
             responseMap.put("underwriterName", null);
         }
@@ -136,7 +139,7 @@ public class adminController {
         String answer = "";
         String newPassword = userwriter.getPassword();
         String userId = userwriter.getUnderwriterId();
-        String currentPassword = userwriter.getAddress(); // Current password provided by user
+        String currentPassword = userwriter.getPassword(); // Current password provided by user
 
         // Verify the current password
         if (service.checkCurrentPassword(userId, currentPassword)) {

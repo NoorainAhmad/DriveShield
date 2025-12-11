@@ -110,8 +110,10 @@ public class adminDao {
 			while (rs.next()) {
 				System.out.println("DEBUG: User found in database!");
 				System.out.println("DEBUG: isAdmin value from DB: " + rs.getBoolean("isAdmin"));
-				userWriter = new UserWriter(rs.getString("name"), rs.getString("underwriterId"),
-						rs.getString("password"), rs.getBoolean("isAdmin"));
+				userWriter = new UserWriter(rs.getString("name"), rs.getDate("date_of_birth"), rs.getString("gender"),
+						rs.getString("address"), rs.getDate("dateOfJoin"), rs.getString("UnderwriterId"),
+						rs.getString("password"), rs.getBoolean("isAdmin"), rs.getBoolean("isdeleted"),
+						rs.getString("role"));
 			}
 			if (userWriter == null) {
 				System.out.println("DEBUG: No user found with provided credentials");

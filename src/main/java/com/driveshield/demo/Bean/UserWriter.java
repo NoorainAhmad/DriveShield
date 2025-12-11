@@ -100,7 +100,7 @@ public class UserWriter {
     }
 
     public UserWriter(String name, Date date_of_birth, String gender, String address, Date dateOfJoin,
-            String underwriterId, String password, boolean isAdmin, boolean isdeleted) {
+            String underwriterId, String password, boolean isAdmin, boolean isdeleted, String role) {
         super();
         this.name = name;
         this.date_of_birth = date_of_birth;
@@ -111,6 +111,7 @@ public class UserWriter {
         this.password = password;
         this.isAdmin = isAdmin;
         this.isdeleted = isdeleted;
+        this.role = role;
     }
 
     public UserWriter(String underwriterId, String name, Date date_of_birth, String gender, String address,
