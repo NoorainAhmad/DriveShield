@@ -108,9 +108,11 @@ public class adminController {
                     System.out.println("DEBUG Controller: Admin login successful");
                     responseMap.put("result", "Login successful: Admin");
                     responseMap.put("underwriterName", loggedIn.getName());
+                    responseMap.put("underwriterId", loggedIn.getUnderwriterId());
                 } else if (!isRequestedAdmin && !loggedIn.isAdmin()) {
                     responseMap.put("result", "Login successful: User");
                     responseMap.put("underwriterName", loggedIn.getName());
+                    responseMap.put("underwriterId", loggedIn.getUnderwriterId());
                 } else {
                     responseMap.put("result", "Invalid role or permissions");
                     responseMap.put("underwriterName", null); // Optional, for explicitness
@@ -130,19 +132,19 @@ public class adminController {
     /**
      * Endpoint to update the password for a UserWriter.
      * 
-     * @param userwriter The UserWriter object containing the new password and
-     *                   credentials.
+     * @param request The UpdatePasswordRequest DTO containing userId, old password,
+     *                and new password.
      * @return A success or failure message in JSON format.
      */
     @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
-    public String updatePassword(@RequestBody UserWriter userwriter) {
+    public String updatePassword(@RequestBody UpdatePasswordRequest request) {
         String answer = "";
-        String newPassword = userwriter.getPassword();
-        String userId = userwriter.getUnderwriterId();
-        String currentPassword = userwriter.getPassword(); // Current password provided by user
+        String userId = request.getUnderwriterId();
+        String oldPassword = request.getOldPassword();
+        String newPassword = request.getNewPassword();
 
         // Verify the current password
-        if (service.checkCurrentPassword(userId, currentPassword)) {
+        if (service.checkCurrentPassword(userId, oldPassword)) {
             // Update the password if the current password is correct
             Boolean result = service.updateUnderWriterPassword(userId, newPassword);
             if (result == true) {
