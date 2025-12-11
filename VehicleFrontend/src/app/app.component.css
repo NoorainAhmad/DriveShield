@@ -1,0 +1,8 @@
+/* ============================================
+   App Component - Main Container
+   ============================================ */
+
+.main {
+    min-height: calc(100vh - 80px);
+    background: var(--color-background);
+}

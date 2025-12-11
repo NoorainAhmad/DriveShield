@@ -1,0 +1,33 @@
+<app-header [pages]="pages"></app-header>
+<head>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+	rel="stylesheet">
+</head>
+	<!-- Content -->
+	<div class="content">
+		<h2>Welcome, Underwriter!</h2>
+		<p>Manage insurance-related tasks using the options below:</p>
+		<div class="options-container">
+			<div class="option">
+				<a routerLink="/addInsurance"> <i class="fa fa-plus-circle"></i>
+					<p>Add Insurance</p>
+				</a>
+			</div>
+			<div class="option">
+				<a routerLink="/searchInsurance"> <i class="fa fa-search"></i>
+					<p>Search Insurance</p>
+				</a>
+			</div>
+			<div class="option">
+				<a routerLink="/searchHistory"> <i class="fa fa-history"></i>
+					<p>Insurance History</p>
+				</a>
+			</div>
+			<div class="option">
+				<a href="/updatePassword"> <i class="fa fa-key"></i>
+					<p>Update Password</p>
+				</a>
+			</div>
+		</div>
+	</div>

@@ -1,0 +1,59 @@
+<app-header></app-header>
+<div class="content">
+  <div class="login-container">
+    <img src="assets/images/logo.png" alt="DriveShield Logo" class="login-logo">
+    <h2>Login</h2>
+
+    <!-- Display Error/Success Message -->
+    <p *ngIf="message" [ngClass]="{
+        'error-message':
+          message.includes('error') || message.includes('invalid'),
+        'success-message': message.includes('successful')
+      }" class="message">
+      {{ message }}
+    </p>
+
+    <!-- Login Form -->
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <!-- Username Field -->
+      <label for="username">Username <span class="required">*</span></label>
+      <input type="text" id="username" [(ngModel)]="username" name="username" placeholder="Enter your username" required
+        #usernameField="ngModel" />
+      <div *ngIf="usernameField.invalid && usernameField.touched" class="error">
+        <p>Username is required.</p>
+      </div>
+
+      <!-- Password Field -->
+      <label for="password">Password <span class="required">*</span></label>
+      <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Enter your password"
+        required #passwordField="ngModel" />
+      <div *ngIf="passwordField.invalid && passwordField.touched" class="error">
+        <p>Password is required.</p>
+      </div>
+
+      <!-- Role Field -->
+      <label for="role">Login As: <span class="required">*</span></label>
+      <select id="role" name="role" [(ngModel)]="role" required #roleField="ngModel">
+        <option value="" disabled>Select Role</option>
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+      </select>
+      <div *ngIf="roleField.invalid && roleField.touched" class="error">
+        Please select a role.
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- Error Modal -->
+<div class="modal" [class.show]="showErrorModal" tabindex="-1" role="dialog" *ngIf="showErrorModal">
+  <div class="modal-content">
+    <h2>Error</h2>
+    <p>{{ modalMessage }}</p>
+    <button (click)="closeModal()">Close</button>
+  </div>
+</div>

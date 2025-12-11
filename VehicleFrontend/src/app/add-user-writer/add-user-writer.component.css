@@ -1,0 +1,176 @@
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.form-container {
+  background: #ffffff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  
+  /* margin-top: 86%; */
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+button {
+  background-color: #004085;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin: 2px;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+/* Response message styling */
+.response {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.response.success {
+  color: #155724;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+.response.error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+/* User details table styling */
+.user-details {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.user-details table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.user-details th,
+.user-details td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.user-details th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.user-details td {
+  background-color: #fafafa;
+}
+
+/* Hidden class for toggling visibility */
+.hidden {
+  display: none;
+}
+
+
+/* Error Message Styling */
+.error-message,
+.error {
+  color: red;
+  font-weight: bold;
+  font-size: 0.875rem;
+  margin: 10px 0 5px;
+}
+
+/* Success Message Styling */
+.success-message {
+  color: green;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+/* General Styling */
+.message {
+  text-align: center;
+}
+
+/* Required Indicator */
+.required {
+  color: red;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 2px;
+  padding: 10px 15px;
+  font-size: 14px;
+  /* margin-left: 61%; */
+  color: #ffffff;
+  background-color:  #004085;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  width: 94%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.back-link:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  color: #ffffff;
+}
+
+.back-link:active {
+  background-color: #003f7f; /* Even darker blue on active click */
+}
+
+.back-link:focus {
+  outline: 2px dashed #007bff;
+  outline-offset: 3px;
+}
