@@ -36,6 +36,9 @@
   align-items: center;
   gap: 1rem;
   animation: fadeIn 0.6s ease-out 0.2s both;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 .logo {

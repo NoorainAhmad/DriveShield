@@ -1,8 +1,8 @@
 <header class="header">
-  <div class="header-brand">
+  <a class="header-brand" routerLink="/userWriter">
     <img src="assets/images/logo.png" alt="DriveShield Logo" class="logo">
     <h1>DriveShield</h1>
-  </div>
+  </a>
   <nav class="navigation">
     <a *ngFor="let page of pages" [routerLink]="page.link" routerLinkActive="active">
       {{ page.name }}
