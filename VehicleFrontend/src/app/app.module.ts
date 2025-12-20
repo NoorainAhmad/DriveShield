@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { FormsModule,ReactiveFormsModule   } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +19,7 @@ import { UserWriterComponent } from './user-writer/user-writer.component';
 import { InsuranceSearchComponent } from './insurance-search/insurance-search.component';
 import { InsuranceHistoryComponent } from './insurance-history/insurance-history.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
+import { JwtInterceptor } from './jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,11 +43,13 @@ import { UpdatePasswordComponent } from './update-password/update-password.compo
     CommonModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule
   ],
   providers: [
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

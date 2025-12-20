@@ -9,7 +9,7 @@ import { UserWriter } from './user-writer.model';
 export class UserService {
   private baseUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getUserById(UserwriterId: String): Observable<any> {
     return this.http.get(
@@ -32,7 +32,7 @@ export class UserService {
   }
 
   getInsuranceById(VehicleNo: String): Observable<any> {
-    console.log(VehicleNo); 
+    console.log(VehicleNo);
     return this.http.get(`${this.baseUrl}/vehicle/getVehicle/${VehicleNo}`);
   }
 
@@ -46,6 +46,7 @@ export class UserService {
     );
   }
 
+  // Legacy login method (kept for backward compatibility)
   login(username: string, password: string, role: string): Observable<any> {
     const loginData = {
       name: username,
@@ -53,6 +54,54 @@ export class UserService {
       role: role,
     };
     return this.http.post(`${this.baseUrl}/admin/login`, loginData);
+  }
+
+  // New JWT login method
+  jwtLogin(username: string, password: string): Observable<any> {
+    const loginData = {
+      username: username,
+      password: password,
+    };
+    return this.http.post(`${this.baseUrl}/auth/login`, loginData);
+  }
+
+  // Token management methods
+  saveToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  saveUserData(username: string, role: string, underwriterId: string): void {
+    localStorage.setItem('username', username);
+    localStorage.setItem('role', role);
+    localStorage.setItem('underwriterId', underwriterId);
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+    localStorage.removeItem('underwriterId');
+    sessionStorage.clear();
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
+  getRole(): string | null {
+    return localStorage.getItem('role');
+  }
+
+  getUsername(): string | null {
+    return localStorage.getItem('username');
+  }
+
+  getUnderwriterId(): string | null {
+    return localStorage.getItem('underwriterId');
   }
 
   /**
@@ -63,3 +112,4 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/admin/updatePassword`, payload);
   }
 }
+

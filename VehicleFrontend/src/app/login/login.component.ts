@@ -24,33 +24,49 @@ export class LoginComponent {
   constructor(private loginService: UserService, private router: Router) { }
   ngOnInit(): void {
     history.pushState(null, '');
+    // Clear any existing tokens on login page load
+    this.loginService.logout();
   }
 
   onSubmit(): void {
-    const isAdmin = this.role === 'admin'; // Convert role to boolean: true for admin, false for user
-
-    this.loginService.login(this.username, this.password, this.role).subscribe(
+    // Use new JWT login
+    this.loginService.jwtLogin(this.username, this.password).subscribe(
       (response: any) => {
-        console.log(response);
-        this.username11 = response.underwriterName;
+        console.log('JWT Login response:', response);
 
-        if (response.result === 'Login successful: Admin') {
+        if (response.success && response.token) {
+          // Store JWT token
+          this.loginService.saveToken(response.token);
+
+          // Store user data
+          this.loginService.saveUserData(
+            response.username,
+            response.role,
+            response.underwriterId
+          );
+
+          // Also store in sessionStorage for backward compatibility
           sessionStorage?.setItem('username', response.underwriterId);
-          sessionStorage?.setItem('user', response.underwriterName);
-          this.router.navigate(['/adminPanel']); // Navigate to Admin Panel
-        } else if (response.result === 'Login successful: User') {
-          sessionStorage?.setItem('username', response.underwriterId);
-          sessionStorage?.setItem('user', response.underwriterName);
-          this.router.navigate(['/userWriter']); // Navigate to User Panel
-        } else if (response.result === 'Update your password (default password detected)') {
-          this.openErrorModal(response.result);
+          sessionStorage?.setItem('user', response.username);
+
+          // Navigate based on role
+          if (response.role === 'admin') {
+            this.router.navigate(['/adminPanel']);
+          } else {
+            this.router.navigate(['/userWriter']);
+          }
         } else {
-          this.message = response.result; // Show error message (already JSON-parsed)
+          // Login failed
+          this.message = response.message || 'Invalid username or password';
         }
       },
       (error) => {
         console.error('Login error:', error);
-        this.message = 'An error occurred during login. Please try again.';
+        if (error.status === 401) {
+          this.message = 'Invalid username or password';
+        } else {
+          this.message = 'An error occurred during login. Please try again.';
+        }
       }
     );
   }
@@ -71,3 +87,4 @@ export class LoginComponent {
     this.router.navigate(['/updatePassword']);
   }
 }
+
