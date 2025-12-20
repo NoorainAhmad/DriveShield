@@ -94,14 +94,8 @@ public class adminController {
         Map<String, String> responseMap = new HashMap<>();
 
         if (loggedIn != null) {
-            // Check if the default password is being used
-            // if (loggedIn.getPassword().equals("Employee@12")) {
-            // responseMap.put("result", "Update your password (default password
-            // detected)");
-            // responseMap.put("underwriterName", loggedIn.getName());
-            // } else {
-            // Validate the role and permissions
-            if (loggedIn.getRole().equalsIgnoreCase("admin")) {
+
+            if (loggedIn.getRole().equalsIgnoreCase("admin") || loggedIn.getRole().equalsIgnoreCase("user")) {
                 isRequestedAdmin = true;
 
                 if (isRequestedAdmin && loggedIn.isAdmin()) {
@@ -109,7 +103,7 @@ public class adminController {
                     responseMap.put("result", "Login successful: Admin");
                     responseMap.put("underwriterName", loggedIn.getName());
                     responseMap.put("underwriterId", loggedIn.getUnderwriterId());
-                } else if (!isRequestedAdmin && !loggedIn.isAdmin()) {
+                } else if (isRequestedAdmin && !loggedIn.isAdmin()) {
                     responseMap.put("result", "Login successful: User");
                     responseMap.put("underwriterName", loggedIn.getName());
                     responseMap.put("underwriterId", loggedIn.getUnderwriterId());
